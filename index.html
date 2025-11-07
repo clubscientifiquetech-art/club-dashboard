@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background: #f4f4f4;
+      }
+      h2 {
+        margin-top: 40px;
+      }
+      input:not([type="checkbox"]),
+      select,
+      textarea,
+      button {
+        margin: 5px 0;
+        padding: 8px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .container {
+        display: flex;
+        gap: 50px;
+      }
+      .section {
+        flex: 1;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      button.delete {
+        background: #e74c3c;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button.delete:hover {
+        opacity: 0.8;
+      }
+      /* Events */
+      .event-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background: #f9f9f9;
+        max-width: 400px;
+      }
+      .event-container h2,
+      h4,
+      p {
+        margin: 5px;
+      }
+      .event-container img {
+        height: 128px;
+        margin-top: 8px;
+        border-radius: 4px;
+      }
+
+      /* Members */
+      .member-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background: #f0f0f0;
+        max-width: 400px;
+      }
+
+      .member-container button.delete {
+        margin-top: 8px;
+        padding: 4px 8px;
+        background: #e74c3c;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .member-container button.delete:hover {
+        background: #c0392b;
+      }
+      .checkbox-container label {
+        display: flex;
+        justify-content: start;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Dashboard</h1>
+    <div class="container">
+      <!-- Events Section -->
+      <div class="section">
+        <h2>Events</h2>
+        <form id="eventForm">
+          <input type="text" name="title" placeholder="Title" required />
+          <textarea
+            name="description"
+            placeholder="Description"
+            required
+          ></textarea>
+          <input type="date" name="date" />
+          <input type="file" name="image" placeholder="Image URL" required />
+          <button type="submit">Add Event</button>
+        </form>
+        <ul id="eventsList"></ul>
+      </div>
+
+      <!-- Members Section -->
+      <div class="section">
+        <h2>Members</h2>
+        <form id="memberForm">
+          <input type="text" name="username" placeholder="Username" required />
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="text" name="phone" placeholder="Phone" required />
+          <div class="checkbox-container">
+            <label>
+              <input type="checkbox" name="activities" value="chess" required />
+              <p>Chess</p>
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                name="activities"
+                value="innovation"
+                required
+              />
+              <p>Innovation</p>
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                name="activities"
+                value="robotic"
+                required
+              />
+              <p>Robotic</p>
+            </label>
+          </div>
+          <textarea name="message" placeholder="Message"></textarea>
+          <button type="submit">Add Member</button>
+        </form>
+        <ul id="membersList"></ul>
+      </div>
+    </div>
+
+    <script defer src="script.js"></script>
+  </body>
+</html>
