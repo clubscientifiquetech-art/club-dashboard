@@ -1,32 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import ToolBar from "../components/ToolBar";
 import MembersTable from "../components/MembersTable";
 import { downloadJSONAsCSV } from "../utils/JsonToCsv";
 
-export default function Members() {
-  const [members, setMembers] = useState([]);
+export default function Members({ members, setMembers }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [verifiedFilter, setVerifiedFilter] = useState(undefined);
   const { token } = useAuth();
-
-  // Fetch members from API
-  useEffect(() => {
-    async function fetchMembers() {
-      try {
-        const res = await fetch(
-          "https://club-server-25gd.onrender.com/members"
-        );
-        if (!res.ok) throw new Error("Failed to fetch members");
-        const data = await res.json();
-        setMembers(data);
-      } catch (error) {
-        console.error("Error fetching members:", error);
-      }
-    }
-
-    fetchMembers();
-  }, []);
 
   const verifyMember = async (id) => {
     try {
