@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 import NavBar from "../components/NavBar";
 import Members from "../layouts/Members";
 import Events from "../layouts/Events";
@@ -9,13 +10,20 @@ const layouts = [Members, Events, Gallery];
 export default function Dashboard() {
   const [members, setMembers] = useState([]);
   const [active, setActive] = useState(0);
+  const { token } = useAuth()
   const ActiveLayout = layouts[active];
+
 
   // Fetch members from API
   useEffect(() => {
     async function fetchMembers() {
       try {
-        const res = await fetch("https://club-server-25gd.onrender.com/members");
+        const res = await fetch("https://club-server-25gd.onrender.com/members", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (!res.ok) throw new Error("Failed to fetch members");
         const data = await res.json();
         setMembers(data);
@@ -25,7 +33,7 @@ export default function Dashboard() {
     }
 
     fetchMembers();
-  }, []);
+  }, [token]);
 
   // Conditionally set props based on active layout
   const layoutProps =
