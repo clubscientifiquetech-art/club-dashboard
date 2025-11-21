@@ -28,14 +28,18 @@ export default function SelectedGalleryModal({ selectedGallery, setSelectedGalle
         }
     };
 
-    const handleRemoveImage = async (galleryId, imageIndex) => {
+    const handleRemoveImage = async (galleryId, filename) => {
         try {
             const token = localStorage.getItem("token");
             const res = await fetch(
-                `https://club-server-25gd.onrender.com/gallery/images/${galleryId}/${imageIndex}`,
+                `https://club-server-25gd.onrender.com/gallery/images/${galleryId}`,
                 {
                     method: "DELETE",
-                    headers: { Authorization: `Bearer ${token}` },
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ filenames: [filename] })
                 }
             );
             if (!res.ok) throw new Error("Failed to remove image");
@@ -68,7 +72,7 @@ export default function SelectedGalleryModal({ selectedGallery, setSelectedGalle
                                 className="w-full h-32 object-cover rounded-lg"
                             />
                             <button
-                                onClick={() => handleRemoveImage(selectedGallery._id, i)}
+                                onClick={() => handleRemoveImage(selectedGallery._id, img)}
                                 className="absolute top-1 right-1 text-red-600 bg-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-all"
                             >
                                 <Trash2 size={18} />
